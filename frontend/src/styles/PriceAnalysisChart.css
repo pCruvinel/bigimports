@@ -1,0 +1,351 @@
+/* Price Analysis Chart */
+.price-analysis-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: var(--shadow-md);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.card-header h3 {
+  margin: 0;
+  color: var(--text-dark);
+  font-size: 1.25rem;
+}
+
+.controls {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.control-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.control-group label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.control-group select {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 0.875rem;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.control-group select:hover:not(:disabled) {
+  border-color: var(--primary-color);
+}
+
+.control-group select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+}
+
+.control-group select:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Loading, Error, Empty States */
+.chart-loading,
+.chart-error,
+.chart-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 2rem;
+  text-align: center;
+}
+
+.chart-loading .spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid var(--bg-light);
+  border-top-color: var(--primary-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.chart-loading p {
+  color: var(--text-light);
+  font-size: 0.875rem;
+}
+
+.chart-error {
+  color: var(--danger-color);
+}
+
+.chart-error button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.875rem;
+  transition: all 0.2s;
+}
+
+.chart-error button:hover {
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+}
+
+.chart-empty {
+  color: var(--text-light);
+}
+
+/* Price Statistics */
+.price-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: var(--bg-light);
+  border-radius: 8px;
+  border-left: 4px solid var(--primary-color);
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  color: var(--text-light);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stat-value {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.stat-value.avg {
+  color: var(--primary-color);
+}
+
+.stat-value.min {
+  color: var(--success-color);
+}
+
+.stat-value.max {
+  color: var(--danger-color);
+}
+
+.stat-value.trend {
+  font-size: 1rem;
+}
+
+.stat-value.trend.up {
+  color: var(--danger-color);
+}
+
+.stat-value.trend.down {
+  color: var(--success-color);
+}
+
+/* Chart Container */
+.chart-container {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  margin-bottom: 2rem;
+}
+
+.price-chart {
+  width: 100%;
+  height: 100%;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: linear-gradient(to bottom, var(--bg-purple-light) 0%, white 100%);
+}
+
+/* Chart Animation */
+.price-chart.ready .area-max,
+.price-chart.ready .area-avg,
+.price-chart.ready .line-avg,
+.price-chart.ready .line-min,
+.price-chart.ready .line-max,
+.price-chart.ready .point-avg {
+  animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Chart Elements */
+.area-max {
+  fill: rgba(239, 68, 68, 0.05);
+}
+
+.area-avg {
+  fill: rgba(124, 58, 237, 0.1);
+}
+
+.line-avg {
+  fill: none;
+  stroke: var(--primary-color);
+  stroke-width: 0.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.line-min {
+  fill: none;
+  stroke: var(--success-color);
+  stroke-width: 0.3;
+  stroke-dasharray: 1, 1;
+  stroke-linecap: round;
+}
+
+.line-max {
+  fill: none;
+  stroke: var(--danger-color);
+  stroke-width: 0.3;
+  stroke-dasharray: 1, 1;
+  stroke-linecap: round;
+}
+
+.point-avg {
+  fill: white;
+  stroke: var(--primary-color);
+  stroke-width: 0.3;
+  transition: all 0.2s;
+}
+
+.point-avg:hover {
+  r: 1.2;
+  fill: var(--primary-color);
+}
+
+/* Chart Labels */
+.chart-labels {
+  position: absolute;
+  bottom: -25px;
+  left: 0;
+  right: 0;
+  height: 20px;
+}
+
+.date-label {
+  position: absolute;
+  font-size: 0.7rem;
+  color: var(--text-light);
+  transform: translateX(-50%);
+}
+
+/* Chart Legend */
+.chart-legend {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--text-dark);
+}
+
+.legend-color {
+  display: inline-block;
+  width: 20px;
+  height: 3px;
+  border-radius: 2px;
+}
+
+.legend-color.avg {
+  background: var(--primary-color);
+}
+
+.legend-color.min {
+  background: var(--success-color);
+}
+
+.legend-color.max {
+  background: var(--danger-color);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .card-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .controls {
+    width: 100%;
+  }
+
+  .control-group {
+    flex: 1;
+    min-width: 140px;
+  }
+
+  .control-group select {
+    width: 100%;
+  }
+
+  .price-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .chart-container {
+    height: 250px;
+  }
+}
+
+@media (max-width: 480px) {
+  .price-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .chart-container {
+    height: 200px;
+  }
+
+  .chart-legend {
+    gap: 1rem;
+  }
+}

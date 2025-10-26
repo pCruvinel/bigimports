@@ -1,0 +1,64 @@
+/* Not Connected Status */
+.connection-status.not-connected {
+  padding: 2rem;
+  border-left: 4px solid var(--primary-color);
+  text-align: center;
+}
+
+.status-icon.warning {
+  background-color: var(--bg-purple-light);
+  color: var(--primary-color);
+  border: 2px solid var(--border-purple);
+}
+
+.status-message {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background-color: var(--bg-light);
+  border-radius: 8px;
+}
+
+.status-message p {
+  color: var(--text-dark);
+  line-height: 1.6;
+  margin-bottom: 0.5rem;
+}
+
+.status-message p:last-child {
+  margin-bottom: 0;
+}
+
+.status-message .hint {
+  font-size: 0.875rem;
+  color: var(--text-light);
+}
+
+/* Connect Button */
+.connect-button {
+  padding: 1rem 2rem;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.2s;
+  min-width: 200px;
+}
+
+.connect-button:hover:not(:disabled) {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.connect-button:disabled {
+  background-color: #ccc;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .connect-button {
+    width: 100%;
+  }
+}
