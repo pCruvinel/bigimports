@@ -1,35 +1,110 @@
-# Dependencies
+# ========================================
+# DEPENDÊNCIAS
+# ========================================
 node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-# Environment variables
+# ========================================
+# VARIÁVEIS DE AMBIENTE (CREDENCIAIS)
+# ========================================
 .env
 .env.local
 .env.*.local
+backend/.env
+frontend/.env
 
-# Build outputs
+# ========================================
+# BUILD / OUTPUTS
+# ========================================
 backend/dist/
 frontend/dist/
 frontend/build/
 
-# Logs
+# ========================================
+# LOGS
+# ========================================
 logs/
 *.log
 
-# OS files
+# ========================================
+# OS
+# ========================================
 .DS_Store
 Thumbs.db
+Desktop.ini
+nul
 
-# IDE
+# ========================================
+# IDE / EDITORES
+# ========================================
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
 
-# Temporary files
+# ========================================
+# DOCS DE IA / ASSISTENTES
+# ========================================
+CLAUDE.md
+.claude/
+.gemini/
+.cursor/
+.copilot/
+.aider*
+.continue/
+
+# ========================================
+# DOCUMENTAÇÃO INTERNA / NÃO-DEPLOY
+# ========================================
+SETTINGS_GUIDE.md
+TESTING.md
+tabelas-detalhadas.md
+
+# ========================================
+# SCRIPTS DE DEBUG / TESTE (RAIZ DO BACKEND)
+# ========================================
+backend/check-roles.js
+backend/check-user-in-db.js
+backend/debug-view-issue.js
+backend/decode-jwt.js
+backend/diagnose-auth-issue.js
+backend/test-create-user.js
+backend/test-price-query.js
+backend/test-qrcode-flow.js
+
+# ========================================
+# SCRIPTS UTILITÁRIOS (NÃO SÃO PARTE DO APP)
+# ========================================
+backend/scripts/addRecentProducts.js
+backend/scripts/checkCategoryConstraint.js
+backend/scripts/checkDatabase.js
+backend/scripts/checkProductsTable.js
+backend/scripts/createAuthUsers.js
+backend/scripts/createTestUsers.sql
+backend/scripts/createUsers.js
+backend/scripts/fixAdminUser.js
+backend/scripts/insertUsers.sql
+backend/scripts/listAdmins.js
+backend/scripts/list_auth_users.js
+backend/scripts/testEndpoints.js
+backend/scripts/updateProductDates.js
+
+# ========================================
+# TESTING
+# ========================================
+coverage/
+.nyc_output/
+
+# ========================================
+# TEMPORÁRIOS
+# ========================================
 *.tmp
 .temp/

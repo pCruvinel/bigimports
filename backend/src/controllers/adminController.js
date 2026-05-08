@@ -176,8 +176,31 @@ const createUser = async (req, res) => {
       });
     }
 
-    // Aguardar 1 segundo para a trigger criar o usuário na tabela
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    // Aguardar a trigger do Supabase criar o registro na tabela users (retry com polling)
+    let userCreatedByTrigger = false;
+    for (let i = 0; i < 10; i++) {
+      await new Promise(resolve => setTimeout(resolve, 500));
+      const { data: checkUser } = await supabaseAdmin
+        .from('users')
+        .select('id')
+        .eq('id', authData.user.id)
+        .maybeSingle();
+      if (checkUser) {
+        userCreatedByTrigger = true;
+        break;
+      }
+    }
+
+    if (!userCreatedByTrigger) {
+      // Reverter criação no Auth se trigger não criou o registro
+      await supabaseAdmin.auth.admin.deleteUser(authData.user.id);
+      return res.status(500).json({
+        error: {
+          message: 'Timeout ao aguardar criação do registro do usuário. Tente novamente.',
+          status: 500
+        }
+      });
+    }
 
     // Atualizar registro na tabela public.users (criado automaticamente pela trigger)
     const instanceId = whatsapp_phone; // Usando whatsapp_phone como instance_id

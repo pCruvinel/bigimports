@@ -8,7 +8,6 @@ const n8nService = require('../services/n8nService');
 const getStatus = async (req, res) => {
   try {
     const userId = req.user.id;
-    console.log('[getStatus] Buscando usuário com ID:', userId);
 
     // Buscar dados do usuário (profile_pic não existe na view, vem da tabela users)
     const { data: user, error } = await supabaseAdmin
@@ -17,11 +16,10 @@ const getStatus = async (req, res) => {
       .eq('id', userId)
       .maybeSingle();
 
-    console.log('[getStatus] Resultado da busca - Error:', error);
-    console.log('[getStatus] Resultado da busca - User:', user);
+
 
     if (error) {
-      console.error('[getStatus] Erro ao buscar usuário:', JSON.stringify(error, null, 2));
+      console.error('[getStatus] Erro ao buscar usuário:', error.message);
       return res.status(500).json({
         error: {
           message: `Erro ao buscar usuário: ${error.message}`,
@@ -31,7 +29,7 @@ const getStatus = async (req, res) => {
     }
 
     if (!user) {
-      console.warn('[getStatus] Usuário não encontrado na view');
+
       return res.status(404).json({
         error: {
           message: 'Usuário não encontrado',
